@@ -6,12 +6,12 @@
 ## Technologies used to create this application include:
 
 ```
-- Express
-- Express-handlebars
-- Mongoose
-- MongoDB
-- Body-parser
-- Cheerio
-- Request
-- Node
+* Express
+* Express-handlebars
+* Mongoose
+* MongoDB
+* Body-parser
+* Cheerio
+* Request
+* Node
 ```
