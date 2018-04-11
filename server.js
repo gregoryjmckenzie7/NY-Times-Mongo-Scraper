@@ -8,7 +8,7 @@ var path = require("path");
 // Requiring all models
 var db = require("./models");
 
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || process.argv[2] || 8080;
 
 // Initialize Express
 var app = express();
@@ -123,3 +123,7 @@ app.get("/articles/:id", function (req, res) {
         });
 });
 
+// Start the server
+app.listen(PORT, function () {
+    console.log(`This application is running on port: ${PORT}`);
+});
