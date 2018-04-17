@@ -6,10 +6,10 @@ var mongoose = require("mongoose");
 var path = require("path");
 
 // Requiring all models
-var Article = require(".models/Note.js");
-var Note = require(".models/Article.js");
+var Note = require("./models/Note.js");
+var Article = require("./models/Article.js");
 
-var PORT = process.env.PORT || process.argv[2] || 8080;
+var PORT = process.env.PORT || 8080;
 
 // Initialize Express
 var app = express();
@@ -25,28 +25,37 @@ app.use(bodyParser.urlencoded({ extended: false}));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://heroku_6m9xjmh:e54cu4ed1lmitpp431a16tk161@ds153198.mlab.com:53198/heroku_6m9qxjmh";
+// Connect to the Mongo DB
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI, {
-    useMongoClient: true
-});
+mongoose.connect(MONGODB_URI);
 
-var db = mongoose.connection;
+// Set mongoose to leverage built in JavaScript ES6 Promises
+// Connect to the Mongo DB
+// mongoose.Promise = Promise;
+// mongoose.connect("mongodb://heroku_6m9xjmh:e54cu4ed1lmitpp431a16tk161@ds153198.mlab.com:53198/heroku_6m9qxjmh");
 
-db.on("error", function(err) {
-    console.log("Mongoose Error: ", err);
-});
 
-db.once("open", function() {
-    console.log("Mongoose connection succesfull.")
-});
+
+// var db = mongoose.connection;
+
+// db.on("error", function(err) {
+//     console.log("Mongoose Error: ", err);
+// });
+
+// db.once("open", function() {
+//     console.log("Mongoose connection succesfull.")
+// });
 
 // Require handlebars
 var exphbs= require("express-handlebars");
-app.engine("handlebars", exphbs({ defaultLayout: "main"}));
+app.engine("handlebars", exphbs({ 
+    defaultLayout: "main",
+    partialsDir: path.join(__dirname, '/views/layouts/partials')
+    }));
 app.set("view engine", "handlebars");
 
 
